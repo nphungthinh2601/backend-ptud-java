@@ -1,12 +1,13 @@
 package backend_java.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Shipper")
 public class Shipper {
 	@Id
-	private String _id;
+	private ObjectId _id;
 	
 	private String cmnd;
 	private String gioiTinh;
@@ -24,10 +25,10 @@ public class Shipper {
 	private Object phieuXetNghiem;
 	private Object tiemNgua;
 	private int trangThaiHoatDong;
-	public String get_id() {
+	public ObjectId get_id() {
 		return _id;
 	}
-	public void set_id(String _id) {
+	public void set_id(ObjectId _id) {
 		this._id = _id;
 	}
 	public String getCmnd() {
@@ -126,7 +127,7 @@ public class Shipper {
 	public void setTrangThaiHoatDong(int trangThaiHoatDong) {
 		this.trangThaiHoatDong = trangThaiHoatDong;
 	}
-	public Shipper(String _id, String cmnd, String gioiTinh, String hinhAnh, String hinhAnhCMNDMatSau,
+	public Shipper(ObjectId _id, String cmnd, String gioiTinh, String hinhAnh, String hinhAnhCMNDMatSau,
 			String hinhAnhCMNDMatTruoc, String hoTen, String matKhau, String ngaySinh, double sdt, double doUyTin,
 			String email, String diaChi, Object viTri, Object phieuXetNghiem, Object tiemNgua, int trangThaiHoatDong) {
 		super();
@@ -152,6 +153,5 @@ public class Shipper {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
 	
 }

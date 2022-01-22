@@ -10,6 +10,5 @@ import backend_java.model.*;
 
 @Repository
 public interface DonHangRepository extends MongoRepository<DonHang, String> {
-	//@Query(value = "{ 'nguoiMua' : ?0 }")
 	List<DonHang> findAllByNguoiMua(ObjectId nguoiMua);
 }

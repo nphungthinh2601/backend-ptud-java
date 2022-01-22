@@ -1,14 +1,15 @@
 package backend_java.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "CuaHang")
 public class CuaHang {
 	@Id
-	private String id;
+	private ObjectId id;
 	
-	private String chuCuaHang;
+	private ObjectId chuCuaHang;
 	private String diaChi;
 	private String giayChungNhanAnToan;
 	private String giayPhepKinhDoanh;
@@ -16,16 +17,17 @@ public class CuaHang {
 	private String tenCuaHang;
 	private int trangThai;
 	private double doUyTin;
-	public String getId() {
+	private String anhDaiDien;
+	public ObjectId getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(ObjectId id) {
 		this.id = id;
 	}
-	public String getChuCuaHang() {
+	public ObjectId getChuCuaHang() {
 		return chuCuaHang;
 	}
-	public void setChuCuaHang(String chuCuaHang) {
+	public void setChuCuaHang(ObjectId chuCuaHang) {
 		this.chuCuaHang = chuCuaHang;
 	}
 	public String getDiaChi() {
@@ -70,8 +72,15 @@ public class CuaHang {
 	public void setDoUyTin(double doUyTin) {
 		this.doUyTin = doUyTin;
 	}
-	public CuaHang(String id, String chuCuaHang, String diaChi, String giayChungNhanAnToan, String giayPhepKinhDoanh,
-			String maSoThue, String tenCuaHang, int trangThai, double doUyTin) {
+	public String getAnhDaiDien() {
+		return anhDaiDien;
+	}
+	public void setAnhDaiDien(String anhDaiDien) {
+		this.anhDaiDien = anhDaiDien;
+	}
+	public CuaHang(ObjectId id, ObjectId chuCuaHang, String diaChi, String giayChungNhanAnToan,
+			String giayPhepKinhDoanh, String maSoThue, String tenCuaHang, int trangThai, double doUyTin,
+			String anhDaiDien) {
 		super();
 		this.id = id;
 		this.chuCuaHang = chuCuaHang;
@@ -82,6 +91,7 @@ public class CuaHang {
 		this.tenCuaHang = tenCuaHang;
 		this.trangThai = trangThai;
 		this.doUyTin = doUyTin;
+		this.anhDaiDien = anhDaiDien;
 	}
 	public CuaHang() {
 		super();
