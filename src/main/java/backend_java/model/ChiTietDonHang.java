@@ -12,6 +12,7 @@ public class ChiTietDonHang {
 	private int soLuong;
 	private ObjectId donHang;
 	private ObjectId sanPham;
+	private String danhGia;
 	public ObjectId getId() {
 		return id;
 	}
@@ -36,15 +37,24 @@ public class ChiTietDonHang {
 	public void setSanPham(ObjectId sanPham) {
 		this.sanPham = sanPham;
 	}
-	public ChiTietDonHang(ObjectId id, int soLuong, ObjectId donHang, ObjectId sanPham) {
+	public String getDanhGia() {
+		return danhGia;
+	}
+	public void setDanhGia(String danhGia) {
+		this.danhGia = danhGia;
+	}
+	public ChiTietDonHang(ObjectId id, int soLuong, ObjectId donHang, ObjectId sanPham, String danhGia) {
 		super();
 		this.id = id;
 		this.soLuong = soLuong;
 		this.donHang = donHang;
 		this.sanPham = sanPham;
+		this.danhGia = danhGia;
 	}
 	public ChiTietDonHang() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 }

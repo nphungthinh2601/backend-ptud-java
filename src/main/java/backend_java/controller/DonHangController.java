@@ -1,5 +1,6 @@
 package backend_java.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,15 +19,21 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import backend_java.model.DonHang;
-import backend_java.repository.DonHangRepository;
+import backend_java.model.*;
+import backend_java.repository.*;
 
 @Configuration
 @RestController
 @RequestMapping("/api")
 public class DonHangController {
 	@Autowired
-	DonHangRepository repo;
+	DonHangRepository donHangRepo;
+	
+	@Autowired
+	ChiTietDonHangRepository chiTietDonHangRepo;
+	
+	@Autowired
+	SanPhamRepository sanPhamRepo;
 	
 	@Autowired
     private MappingMongoConverter mappingMongoConverter;
@@ -41,7 +48,7 @@ public class DonHangController {
 	public ResponseEntity<List<DonHang>> XemDanhSachDonHang() {
 		try {
 			List<DonHang> donHanglst = new ArrayList<DonHang>();
-			repo.findAll().forEach(donHanglst::add);
+			donHangRepo.findAll().forEach(donHanglst::add);
 			
 			if (donHanglst.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -53,19 +60,57 @@ public class DonHangController {
 		}
 	}
 	@GetMapping("/donhang/nguoimua/{id}")
-	public ResponseEntity<List<DonHang>> findById(@PathVariable("id") String id) {
+	public ResponseEntity<List<Invoice>> GetInfOfInvoicesByCus(@PathVariable("id") String id) {
 		// In case you want to mention the parent ID itself,
 		ObjectId _id = new ObjectId(id);
-
+		
+		List<Invoice> result = new ArrayList<Invoice>();
+		
 		try {
-			List<DonHang> donHanglst = new ArrayList<DonHang>();
-			repo.findAllByNguoiMua(_id).forEach(donHanglst::add);
+			List<DonHang> invs = new ArrayList<DonHang>();
+			donHangRepo.findAllByNguoiMua(_id).forEach(invs::add);
+			int i = 1;
 			
-			if (donHanglst.isEmpty()) {
+			for(DonHang inv : invs) {
+				List<ChiTietDonHang> invdetails = new ArrayList<ChiTietDonHang>();
+				chiTietDonHangRepo.findAllByDonHang(inv.getId()).forEach(invdetails::add);
+				
+				ArrayList<InvoiceDetail> listinvoiceDetails = new ArrayList<InvoiceDetail>();
+				int tmptotal = 0;
+				
+				for(ChiTietDonHang invdetail : invdetails) {
+					SanPham prods = new SanPham();
+					prods = sanPhamRepo.findById(invdetail.getSanPham().toString()).get();
+					
+					InvoiceDetail tmpInvoiceDetail = new InvoiceDetail();
+					
+                    tmpInvoiceDetail.setProduct(prods.getTenSanPham());
+                    tmpInvoiceDetail.setPrice(prods.getGiaTien());
+                    tmpInvoiceDetail.setNumOfElement(invdetail.getSoLuong());
+                    tmpInvoiceDetail.setUnit(prods.getDonViTinh());
+                    tmptotal += prods.getGiaTien() * invdetail.getSoLuong();
+                    listinvoiceDetails.add(tmpInvoiceDetail);
+				}
+				
+				Invoice tmp = new Invoice();
+                tmp.setID(i);
+                tmp.setInvoiceID(inv.getId().toString());
+                tmp.setTimeOrder(new SimpleDateFormat("MM/dd/yyyy").format(inv.getThoiGianDat()));
+                tmp.setInvoiceDetail(listinvoiceDetails);
+                tmp.setTotal(tmptotal);
+                tmp.setStatus(inv.getTinhTrang());
+                tmp.setOldStatus(inv.getTinhTrangCu());
+                tmp.setPayment(inv.getPhuongThucThanhToan());
+                tmp.setAction(inv.getTinhTrang() == "Đóng gói" ? true : false);
+                result.add(tmp);
+                i++;
+			}
+
+			if (result.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
 			
-			return new ResponseEntity<>(donHanglst, HttpStatus.OK);
+			return new ResponseEntity<>(result, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -76,7 +121,7 @@ public class DonHangController {
 	public ResponseEntity<DonHang> CancelInvoice(@PathVariable("id") String id) {
 		try {
 			DonHang donHang = new DonHang();
-			donHang = repo.findById(id).get();
+			donHang = donHangRepo.findById(id).get();
 			
 			if (donHang == null) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -84,7 +129,7 @@ public class DonHangController {
 			
 			donHang.setTinhTrangCu(donHang.getTinhTrangCu().compareTo("") == 0 ? donHang.getTinhTrang() : (donHang.getTinhTrangCu() + " -> Đã huỷ"));
 			donHang.setTinhTrang("Đã huỷ");
-			repo.save(donHang);
+			donHangRepo.save(donHang);
 			return new ResponseEntity<>(donHang, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
