@@ -52,7 +52,6 @@ public class DonHangController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
 	@GetMapping("/donhang/nguoimua/{id}")
 	public ResponseEntity<List<DonHang>> findById(@PathVariable("id") String id) {
 		// In case you want to mention the parent ID itself,
