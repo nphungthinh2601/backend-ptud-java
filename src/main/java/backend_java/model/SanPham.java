@@ -2,29 +2,30 @@ package backend_java.model;
 
 import java.util.Date;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "SanPham")
 public class SanPham {
 	@Id
-	private String id;
+	private ObjectId id;
 	
 	private String tenSanPham;
 	private String xuatXu;
 	private int giaTien;
 	private Date hanSuDung;
-	private String cuaHang;
-	private String loaiHang;
+	private ObjectId cuaHang;
+	private ObjectId loaiHang;
 	private String hinhAnh;
 	private boolean thietYeu;
 	private String tenCuaHang;
 	private String tenLoaiHang;
 	private String donViTinh;
-	public String getId() {
+	public ObjectId getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(ObjectId id) {
 		this.id = id;
 	}
 	public String getTenSanPham() {
@@ -51,16 +52,16 @@ public class SanPham {
 	public void setHanSuDung(Date hanSuDung) {
 		this.hanSuDung = hanSuDung;
 	}
-	public String getCuaHang() {
+	public ObjectId getCuaHang() {
 		return cuaHang;
 	}
-	public void setCuaHang(String cuaHang) {
+	public void setCuaHang(ObjectId cuaHang) {
 		this.cuaHang = cuaHang;
 	}
-	public String getLoaiHang() {
+	public ObjectId getLoaiHang() {
 		return loaiHang;
 	}
-	public void setLoaiHang(String loaiHang) {
+	public void setLoaiHang(ObjectId loaiHang) {
 		this.loaiHang = loaiHang;
 	}
 	public String getHinhAnh() {
@@ -93,8 +94,8 @@ public class SanPham {
 	public void setDonViTinh(String donViTinh) {
 		this.donViTinh = donViTinh;
 	}
-	public SanPham(String id, String tenSanPham, String xuatXu, int giaTien, Date hanSuDung, String cuaHang,
-			String loaiHang, String hinhAnh, boolean thietYeu, String tenCuaHang, String tenLoaiHang,
+	public SanPham(ObjectId id, String tenSanPham, String xuatXu, int giaTien, Date hanSuDung, ObjectId cuaHang,
+			ObjectId loaiHang, String hinhAnh, boolean thietYeu, String tenCuaHang, String tenLoaiHang,
 			String donViTinh) {
 		super();
 		this.id = id;
@@ -114,5 +115,5 @@ public class SanPham {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 }

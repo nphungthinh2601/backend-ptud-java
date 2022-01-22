@@ -1,20 +1,21 @@
 package backend_java.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "ChiTietDonHang")
 public class ChiTietDonHang {
 	@Id
-	private String id;
+	private ObjectId id;
 	
 	private int soLuong;
-	private String donHang;
-	private String sanPham;
-	public String getId() {
+	private ObjectId donHang;
+	private ObjectId sanPham;
+	public ObjectId getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(ObjectId id) {
 		this.id = id;
 	}
 	public int getSoLuong() {
@@ -23,19 +24,19 @@ public class ChiTietDonHang {
 	public void setSoLuong(int soLuong) {
 		this.soLuong = soLuong;
 	}
-	public String getDonHang() {
+	public ObjectId getDonHang() {
 		return donHang;
 	}
-	public void setDonHang(String donHang) {
+	public void setDonHang(ObjectId donHang) {
 		this.donHang = donHang;
 	}
-	public String getSanPham() {
+	public ObjectId getSanPham() {
 		return sanPham;
 	}
-	public void setSanPham(String sanPham) {
+	public void setSanPham(ObjectId sanPham) {
 		this.sanPham = sanPham;
 	}
-	public ChiTietDonHang(String id, int soLuong, String donHang, String sanPham) {
+	public ChiTietDonHang(ObjectId id, int soLuong, ObjectId donHang, ObjectId sanPham) {
 		super();
 		this.id = id;
 		this.soLuong = soLuong;
@@ -46,6 +47,4 @@ public class ChiTietDonHang {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 }
