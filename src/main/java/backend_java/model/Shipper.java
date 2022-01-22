@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Shipper {
 	@Id
 	private String _id;
+	
 	private String cmnd;
 	private String gioiTinh;
 	private String hinhAnh;

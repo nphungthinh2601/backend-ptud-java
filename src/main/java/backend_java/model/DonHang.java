@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class DonHang {
 	@Id
 	private String id;
+	
 	private String tinhTrang;
 	private Date thoiGianDat;
 	private String nguoiMua;

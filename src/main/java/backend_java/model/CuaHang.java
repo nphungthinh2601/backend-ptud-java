@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class CuaHang {
 	@Id
 	private String id;
+	
 	private String chuCuaHang;
 	private String diaChi;
 	private String giayChungNhanAnToan;

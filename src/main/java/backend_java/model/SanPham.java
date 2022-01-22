@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class SanPham {
 	@Id
 	private String id;
+	
 	private String tenSanPham;
 	private String xuatXu;
 	private int giaTien;
