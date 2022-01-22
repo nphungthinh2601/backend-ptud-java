@@ -5,7 +5,6 @@ import java.util.Date;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.*;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "DonHang")
 public class DonHang{
