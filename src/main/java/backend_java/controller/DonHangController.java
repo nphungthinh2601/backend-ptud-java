@@ -3,11 +3,8 @@ package backend_java.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
-=======
 import javax.annotation.PostConstruct;
 
->>>>>>> 49db61b6001d0e96aa3eeca169cc01c4fde2b480
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -55,37 +52,13 @@ public class DonHangController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-<<<<<<< HEAD
-//	@GetMapping("/donhang/nguoimua/{id}")
-//	public ResponseEntity<List<DonHang>> findByNguoiMua(@PathVariable("id") String id) {
-//		try {
-//			List<DonHang> donHanglst = new ArrayList<DonHang>();
-//			repo.findByNguoiMua(id).forEach(donHanglst::add);
-//			
-//			if (donHanglst.isEmpty()) {
-//				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//			}
-//			
-//			return new ResponseEntity<>(donHanglst, HttpStatus.OK);
-//		} catch (Exception e) {
-//			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
-	@GetMapping("/donhang/{id}")
-=======
 	@GetMapping("/donhang/nguoimua/{id}")
->>>>>>> 49db61b6001d0e96aa3eeca169cc01c4fde2b480
 	public ResponseEntity<List<DonHang>> findById(@PathVariable("id") String id) {
 		// In case you want to mention the parent ID itself,
 		ObjectId _id = new ObjectId(id);
 
 		try {
 			List<DonHang> donHanglst = new ArrayList<DonHang>();
-<<<<<<< HEAD
-			// repo.findByNguoiMua(id).forEach(donHanglst::add);
-=======
->>>>>>> 49db61b6001d0e96aa3eeca169cc01c4fde2b480
 			repo.findAllByNguoiMua(_id).forEach(donHanglst::add);
 			
 			if (donHanglst.isEmpty()) {
