@@ -2,13 +2,14 @@ package backend_java.model;
 
 import java.util.ArrayList;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "NguoiDung")
 public class NguoiDung {
 	@Id
-	private String id;
+	private ObjectId id;
 	
 	private String cmnd;
 	private String gioiTinh;
@@ -25,10 +26,10 @@ public class NguoiDung {
 	private String diaChi;
 	private ArrayList<Cart> gioHang;
 	private ArrayList<Address> diaChiGiaoNhan;
-	public String getId() {
+	public ObjectId getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(ObjectId id) {
 		this.id = id;
 	}
 	public String getCmnd() {
@@ -121,7 +122,7 @@ public class NguoiDung {
 	public void setDiaChiGiaoNhan(ArrayList<Address> diaChiGiaoNhan) {
 		this.diaChiGiaoNhan = diaChiGiaoNhan;
 	}
-	public NguoiDung(String id, String cmnd, String gioiTinh, String hinhAnh, String hinhAnhCMNDMatSau,
+	public NguoiDung(ObjectId id, String cmnd, String gioiTinh, String hinhAnh, String hinhAnhCMNDMatSau,
 			String hinhAnhCMNDMatTruoc, String hoTen, int loaiND, String matKhau, String ngaySinh, String sdt,
 			double doUyTin, String email, String diaChi, ArrayList<Cart> gioHang, ArrayList<Address> diaChiGiaoNhan) {
 		super();
@@ -146,7 +147,4 @@ public class NguoiDung {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
 }

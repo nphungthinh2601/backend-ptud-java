@@ -2,33 +2,35 @@ package backend_java.model;
 
 import java.util.Date;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "VanDon")
 public class VanDon {
 	@Id
-	private String _id;
+	private ObjectId _id;
 	
-	private String maDonHang;
+	private ObjectId maDonHang;
 	private String sdtNguoiMua;
-	private String cuaHang;
+	private ObjectId cuaHang;
 	private String sdtShipper;
 	private String trangThai;
 	private String diaChiGiaoHang;
 	private int giaTri;
 	private Date thoiGianDat;
 	private Date thoiGianGiao;
-	public String get_id() {
+	private int tienVanChuyen;
+	public ObjectId get_id() {
 		return _id;
 	}
-	public void set_id(String _id) {
+	public void set_id(ObjectId _id) {
 		this._id = _id;
 	}
-	public String getMaDonHang() {
+	public ObjectId getMaDonHang() {
 		return maDonHang;
 	}
-	public void setMaDonHang(String maDonHang) {
+	public void setMaDonHang(ObjectId maDonHang) {
 		this.maDonHang = maDonHang;
 	}
 	public String getSdtNguoiMua() {
@@ -37,10 +39,10 @@ public class VanDon {
 	public void setSdtNguoiMua(String sdtNguoiMua) {
 		this.sdtNguoiMua = sdtNguoiMua;
 	}
-	public String getCuaHang() {
+	public ObjectId getCuaHang() {
 		return cuaHang;
 	}
-	public void setCuaHang(String cuaHang) {
+	public void setCuaHang(ObjectId cuaHang) {
 		this.cuaHang = cuaHang;
 	}
 	public String getSdtShipper() {
@@ -79,8 +81,15 @@ public class VanDon {
 	public void setThoiGianGiao(Date thoiGianGiao) {
 		this.thoiGianGiao = thoiGianGiao;
 	}
-	public VanDon(String _id, String maDonHang, String sdtNguoiMua, String cuaHang, String sdtShipper, String trangThai,
-			String diaChiGiaoHang, int giaTri, Date thoiGianDat, Date thoiGianGiao) {
+	public int getTienVanChuyen() {
+		return tienVanChuyen;
+	}
+	public void setTienVanChuyen(int tienVanChuyen) {
+		this.tienVanChuyen = tienVanChuyen;
+	}
+	public VanDon(ObjectId _id, ObjectId maDonHang, String sdtNguoiMua, ObjectId cuaHang, String sdtShipper,
+			String trangThai, String diaChiGiaoHang, int giaTri, Date thoiGianDat, Date thoiGianGiao,
+			int tienVanChuyen) {
 		super();
 		this._id = _id;
 		this.maDonHang = maDonHang;
@@ -92,10 +101,11 @@ public class VanDon {
 		this.giaTri = giaTri;
 		this.thoiGianDat = thoiGianDat;
 		this.thoiGianGiao = thoiGianGiao;
+		this.tienVanChuyen = tienVanChuyen;
 	}
 	public VanDon() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
 }

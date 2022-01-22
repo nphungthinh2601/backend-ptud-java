@@ -2,29 +2,32 @@ package backend_java.model;
 
 import java.util.Date;
 
-import org.springframework.data.annotation.Id;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.*;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "DonHang")
-public class DonHang {
+public class DonHang{
 	@Id
-	private String id;
+	private ObjectId id;
 	
 	private String tinhTrang;
 	private Date thoiGianDat;
-	private String nguoiMua;
+	private ObjectId nguoiMua;
 	private String phuongThucThanhToan;
-	private String shipper;
-	private String cuaHang;
+	private ObjectId shipper;
+	private ObjectId cuaHang;
 	private int danhGiaCuaKH;
 	private int danhGiaCuaNhaCC;
 	private double tongTien;
 	private int khDanhGiaShipper;
 	private String tinhTrangCu;
-	public String getId() {
+	
+	public ObjectId getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(ObjectId id) {
 		this.id = id;
 	}
 	public String getTinhTrang() {
@@ -39,10 +42,10 @@ public class DonHang {
 	public void setThoiGianDat(Date thoiGianDat) {
 		this.thoiGianDat = thoiGianDat;
 	}
-	public String getNguoiMua() {
+	public ObjectId getNguoiMua() {
 		return nguoiMua;
 	}
-	public void setNguoiMua(String nguoiMua) {
+	public void setNguoiMua(ObjectId nguoiMua) {
 		this.nguoiMua = nguoiMua;
 	}
 	public String getPhuongThucThanhToan() {
@@ -51,16 +54,16 @@ public class DonHang {
 	public void setPhuongThucThanhToan(String phuongThucThanhToan) {
 		this.phuongThucThanhToan = phuongThucThanhToan;
 	}
-	public String getShipper() {
+	public ObjectId getShipper() {
 		return shipper;
 	}
-	public void setShipper(String shipper) {
+	public void setShipper(ObjectId shipper) {
 		this.shipper = shipper;
 	}
-	public String getCuaHang() {
+	public ObjectId getCuaHang() {
 		return cuaHang;
 	}
-	public void setCuaHang(String cuaHang) {
+	public void setCuaHang(ObjectId cuaHang) {
 		this.cuaHang = cuaHang;
 	}
 	public int getDanhGiaCuaKH() {
@@ -93,8 +96,8 @@ public class DonHang {
 	public void setTinhTrangCu(String tinhTrangCu) {
 		this.tinhTrangCu = tinhTrangCu;
 	}
-	public DonHang(String id, String tinhTrang, Date thoiGianDat, String nguoiMua, String phuongThucThanhToan,
-			String shipper, String cuaHang, int danhGiaCuaKH, int danhGiaCuaNhaCC, double tongTien,
+	public DonHang(ObjectId id, String tinhTrang, Date thoiGianDat, ObjectId nguoiMua, String phuongThucThanhToan,
+			ObjectId shipper, ObjectId cuaHang, int danhGiaCuaKH, int danhGiaCuaNhaCC, double tongTien,
 			int khDanhGiaShipper, String tinhTrangCu) {
 		super();
 		this.id = id;
@@ -114,4 +117,6 @@ public class DonHang {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	
 }
