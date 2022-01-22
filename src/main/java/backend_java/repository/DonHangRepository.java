@@ -2,8 +2,8 @@ package backend_java.repository;
 
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import backend_java.model.*;
@@ -11,5 +11,5 @@ import backend_java.model.*;
 @Repository
 public interface DonHangRepository extends MongoRepository<DonHang, String> {
 	//@Query(value = "{ 'nguoiMua' : ?0 }")
-	List<DonHang> findByNguoiMua(String nguoiMua);
+	List<DonHang> findAllByNguoiMua(ObjectId nguoiMua);
 }
