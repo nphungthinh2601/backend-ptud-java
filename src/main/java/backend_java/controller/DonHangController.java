@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -59,6 +60,8 @@ public class DonHangController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/donhang/nguoimua/{id}")
 	public ResponseEntity<List<Invoice>> GetInfOfInvoicesByCus(@PathVariable("id") String id) {
 		// In case you want to mention the parent ID itself,
@@ -101,7 +104,7 @@ public class DonHangController {
                 tmp.setStatus(inv.getTinhTrang());
                 tmp.setOldStatus(inv.getTinhTrangCu());
                 tmp.setPayment(inv.getPhuongThucThanhToan());
-                tmp.setAction(inv.getTinhTrang() == "Đóng gói" ? true : false);
+                tmp.setAction((inv.getTinhTrang().compareTo("Đóng gói") == 0 || inv.getTinhTrang().compareTo("Mới tạo") == 0) ? true : false);
                 result.add(tmp);
                 i++;
 			}
@@ -116,12 +119,16 @@ public class DonHangController {
 		}
 	}
 
-	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/donhang/huydonhang/{id}")
 	public ResponseEntity<DonHang> CancelInvoice(@PathVariable("id") String id) {
 		try {
 			DonHang donHang = new DonHang();
 			donHang = donHangRepo.findById(id).get();
+			
+			if(donHang.getTinhTrang().compareTo("Mới tạo") != 0 && donHang.getTinhTrang().compareTo("Đóng gói") != 0) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
 			
 			if (donHang == null) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
