@@ -130,7 +130,7 @@ public class DonHangController {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
 			
-			if (donHang == null) {
+			if (donHang.equals(null)) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
 			
