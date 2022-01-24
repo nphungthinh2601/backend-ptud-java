@@ -1,5 +1,6 @@
 package backend_java.controller;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,31 @@ public class DonHangController {
 			}
 			
 			return new ResponseEntity<>(donHanglst, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/donhang/tinhtoantienhoahong")
+	public ResponseEntity<String> TinhToanTienHoaHong() {
+		try {
+			List<DonHang> donHanglst = new ArrayList<DonHang>();
+			donHangRepo.findAll().forEach(donHanglst::add);
+			Double tongHoaHong = 0.0;
+			tongHoaHong = donHanglst.stream()
+					  .map(donHang -> donHang.getTongTien())
+					  .reduce(0.0, Double::sum);
+			System.out.println(tongHoaHong);
+		    NumberFormat nf = NumberFormat.getInstance();
+		    nf.setMinimumFractionDigits(2);
+		    System.out.println(nf.format(tongHoaHong));
+						
+			if (donHanglst.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			
+			return new ResponseEntity<>(nf.format(tongHoaHong), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
