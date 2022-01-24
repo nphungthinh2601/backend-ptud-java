@@ -12,8 +12,11 @@ import org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -69,5 +72,43 @@ public class ChiTietDonHangController {
 //			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 //		}
 //	}
+
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PutMapping("/chitietdonhang/review/{id}")
+	public ResponseEntity<ChiTietDonHang> CapNhatDanhGia(@PathVariable("id") String id, @RequestBody String ct) {
+		try {
+			ChiTietDonHang ctdh = new ChiTietDonHang();
+			ctdh = repo.findById(id).get();
+			
+			if (ctdh == null) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			
+			ctdh.setDanhGia(ct);
+			repo.save(ctdh);
+			return new ResponseEntity<>(ctdh, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PutMapping("/chitietdonhang/response/{id}")
+	public ResponseEntity<ChiTietDonHang> CapNhatPhanHoi(@PathVariable("id") String id, @RequestBody String ct) {
+		try {
+			ChiTietDonHang ctdh = new ChiTietDonHang();
+			ctdh = repo.findById(id).get();
+			
+			if (ctdh == null) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			
+			ctdh.setPhanHoi(ct);
+			repo.save(ctdh);
+			return new ResponseEntity<>(ctdh, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 }

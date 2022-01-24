@@ -13,6 +13,7 @@ public class ChiTietDonHang {
 	private ObjectId donHang;
 	private ObjectId sanPham;
 	private String danhGia;
+	private String phanHoi;
 	public ObjectId getId() {
 		return id;
 	}
@@ -43,13 +44,21 @@ public class ChiTietDonHang {
 	public void setDanhGia(String danhGia) {
 		this.danhGia = danhGia;
 	}
-	public ChiTietDonHang(ObjectId id, int soLuong, ObjectId donHang, ObjectId sanPham, String danhGia) {
+	public String getPhanHoi() {
+		return phanHoi;
+	}
+	public void setPhanHoi(String phanHoi) {
+		this.phanHoi = phanHoi;
+	}
+	public ChiTietDonHang(ObjectId id, int soLuong, ObjectId donHang, ObjectId sanPham, String danhGia,
+			String phanHoi) {
 		super();
 		this.id = id;
 		this.soLuong = soLuong;
 		this.donHang = donHang;
 		this.sanPham = sanPham;
 		this.danhGia = danhGia;
+		this.phanHoi = phanHoi;
 	}
 	public ChiTietDonHang() {
 		super();
