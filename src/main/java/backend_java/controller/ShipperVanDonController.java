@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper;
@@ -24,9 +25,9 @@ import backend_java.repository.*;
 @Configuration
 @RestController
 @RequestMapping("/api")
-public class ShipperController {
+public class ShipperVanDonController {
 	@Autowired
-	ShipperRepository repo;
+	ShipperVanDonRepository repo;
 	
 	@Autowired
     private MappingMongoConverter mappingMongoConverter;
@@ -36,34 +37,20 @@ public class ShipperController {
         mappingMongoConverter.setTypeMapper(new DefaultMongoTypeMapper(null));
     }
 	
-	@CrossOrigin(origins = "http://localhost:4200")
-	@GetMapping("/shipper")
-	public ResponseEntity<List<Shipper>> XemDanhSachShipper() {
-		try {
-			List<Shipper> shipperlst = new ArrayList<Shipper>();
-			repo.findAll().forEach(shipperlst::add);
-			
-			if (shipperlst.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-			
-			return new ResponseEntity<>(shipperlst, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-	
 	@CrossOrigin(origins = "http://localhost:4401")
-	@GetMapping("/shipper/{id}")
-	public ResponseEntity<Shipper> Get(@PathVariable("id") String id) {
+	@GetMapping("/shippervandon/{id}")
+	public ResponseEntity<List<ShipperVanDon>> XemDanhSachShipper(@PathVariable("id") String id) {
 		try {
-			Shipper shipper = new Shipper();
-			shipper = repo.findById(id).get();
+			List<ShipperVanDon> shipperVandonlst = new ArrayList<ShipperVanDon>();
+			System.out.println(id);
+			ObjectId objId = new ObjectId(id);
+			repo.findAllByShipper(objId).forEach(shipperVandonlst::add);
 			
-			if (shipper == null) {
+			if (shipperVandonlst.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
-			return new ResponseEntity<>(shipper, HttpStatus.OK);
+			
+			return new ResponseEntity<>(shipperVandonlst, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}

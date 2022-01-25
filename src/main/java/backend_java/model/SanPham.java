@@ -94,7 +94,7 @@ public class SanPham {
 	public void setDonViTinh(String donViTinh) {
 		this.donViTinh = donViTinh;
 	}
-	public SanPham(ObjectId id, String tenSanPham, String xuatXu, int giaTien, Date hanSuDung, ObjectId cuaHang,
+	public SanPham(String id, String tenSanPham, String xuatXu, int giaTien, Date hanSuDung, ObjectId cuaHang,
 			ObjectId loaiHang, String hinhAnh, boolean thietYeu, String tenCuaHang, String tenLoaiHang,
 			String donViTinh) {
 		super();
