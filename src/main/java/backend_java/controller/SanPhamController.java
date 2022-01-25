@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,6 +40,22 @@ public class SanPhamController {
 			List<SanPham> sanPhamlst = new ArrayList<SanPham>();
 			repo.findAll().forEach(sanPhamlst::add);
 			
+			if (sanPhamlst.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			
+			return new ResponseEntity<>(sanPhamlst, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/sanpham/essential")
+	public ResponseEntity<List<SanPham>> XemDanhSachSanPhamThietYeu() {
+		try {
+			List<SanPham> sanPhamlst = new ArrayList<SanPham>();
+			repo.findAllByThietYeu(true).forEach(sanPhamlst::add);
 			if (sanPhamlst.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
