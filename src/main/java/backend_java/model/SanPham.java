@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "SanPham")
 public class SanPham {
 	@Id
-	private ObjectId id;
+	private String id;
 	
 	private String tenSanPham;
 	private String xuatXu;
@@ -22,10 +22,10 @@ public class SanPham {
 	private String tenCuaHang;
 	private String tenLoaiHang;
 	private String donViTinh;
-	public ObjectId getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(ObjectId id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getTenSanPham() {
@@ -115,5 +115,4 @@ public class SanPham {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
 }
